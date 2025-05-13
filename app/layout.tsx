@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Providers as ThemeProviders } from "./providers";
-import { roboto } from "./fonts";
+import { inter } from "./fonts";
 
 
 export const metadata: Metadata = {
@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       
         <body
-          className={`${roboto.className} antialiased`}
+          className={`${inter.className} antialiased`}
         >
           <ThemeProviders>
             {children}

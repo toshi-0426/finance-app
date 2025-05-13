@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import ThemeSwitch from './themeSwitch'
+import ThemeSwitch from './dark-mode-toggle'
 
 type PageHeaderProps = {
   className?: string

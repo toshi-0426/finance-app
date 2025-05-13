@@ -18,8 +18,7 @@ export default function Button({
                 hover:bg-gray-700 dark:hover:bg-gray-200 rounded-md`.trim(),
         outline: `border border-gray-300 dark:border-gray-500 
                 rounded-md hover:bg-gray-300 dark:hover:bg-gray-500`.trim(),
-        ghost: `rounded-md bg-white dark:bg-black hover:bg-gray-200 
-                dark:hover:bg-gray-500 dark:bg-gray-500`.trim()
+        ghost: `rounded-md bg-white dark:bg-black hover:bg-gray-200 dark:hover:bg-gray-500`.trim()
     };
     const sizes = {
         xs: 'text-xs px-2 py-1',
