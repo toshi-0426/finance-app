@@ -6,6 +6,7 @@ import Select from "@/components/select";
 import TransactionItem from "@/components/transaction-item";
 import TransactionSummaryItem from "@/components/transaction-summary-item";
 import Trend from "@/components/trend";
+import Separator from '@/components/separator'
 
 export default function Page(){
     return (
@@ -14,13 +15,13 @@ export default function Page(){
 
             <div>
                 <h2 className="mb-4 text-lg font-mono">Page Header</h2>
-                <hr className="mb-4 border-gray-400 dark:border-gray-800"/>
+                <Separator />
                 <div><PageHeader /></div>
             </div>
 
             <div>
                 <h2 className="mb-4 text-lg font-mono">Trend</h2>
-                <hr className="mb-4 border-gray-400 dark:border-gray-800"/>
+                <Separator />
                 <div className="flex space-x-12">
                     <Trend type="Income" amount={1000} preAmount={900} />
                     <Trend type="Expense" amount={12000} preAmount={10000} />
@@ -31,7 +32,7 @@ export default function Page(){
             
             <div>
                 <h2 className="mb-4 text-lg font-mono">Tansaction Item</h2>
-                <hr className="mb-4 border-gray-400 dark:border-gray-800"/>
+                <Separator />
                 <div className="">
                     <TransactionItem type="Income" description="Salary" amount={2000} />
                     <TransactionItem type="Expense" category="Food" description="Going out to eat" amount={29} />
@@ -43,7 +44,7 @@ export default function Page(){
 
             <div>
                 <h2 className="mb-4 text-lg font-mono">Tansaction Summary Item + Transaction Item</h2>
-                <hr className="mb-4 border-gray-400 dark:border-gray-800"/>
+                <Separator />
                 <div className="space-y-4">
                     <TransactionSummaryItem date={new Date(2025, 5, 4)} amount={3500}/>
                     <hr className="mb-4 border-gray-400 dark:border-gray-800"/>
@@ -57,7 +58,7 @@ export default function Page(){
 
             <div>
                 <h2 className="mb-4 text-lg font-mono">Buttons</h2>
-                <hr className="mb-4 border-gray-400 dark:border-gray-800"/>
+                <Separator />
                 <div className="space-x-4">
                     <Button>Hello</Button>
                     <Button variant="outline">Hello</Button>
@@ -72,7 +73,7 @@ export default function Page(){
 
             <div>
                 <h2 className="mb-4 text-lg font-mono">Forms</h2>
-                <hr className="mb-4 border-gray-400 dark:border-gray-800"/>
+                <Separator />
                 <div className="grid grid-cols-2 gap-4">
                     <div>
                         <Label className="block mb-1">Your Name</Label>

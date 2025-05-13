@@ -17,11 +17,11 @@ export default function ThemeSwitch() {
         return (
             <Button
                 variant="ghost"
-                size="sm"
+                size="base"
                 onClick={() => setTheme('light')}
             >
                 <FiSun 
-                    className="w-4 h-4 cursor-pointer"
+                    className="w-5 h-5 cursor-pointer"
                 />
             </Button>
         )
@@ -30,11 +30,11 @@ export default function ThemeSwitch() {
     return (
         <Button
                 variant="ghost"
-                size="sm"
+                size="base"
                 onClick={() => setTheme('dark')}
             >
                 <FiMoon 
-                    className="w-4 h-4 cursor-pointer"
+                    className="w-5 h-5 cursor-pointer"
                 />
             </Button>
     )

@@ -13,7 +13,7 @@ export default function Layout({ children } : LayoutProps) {
           <main>
             {children}
           </main>
-          <footer>
+          <footer className="mt-auto text-center pb-8">
             Footer
           </footer>
         </>
