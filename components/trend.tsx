@@ -5,13 +5,13 @@ import { useFormatCurrency } from "@/hooks/use-format-currency";
 type TrendProps = {
     type: 'Income' | 'Expense' | 'Investment' | 'Saving',
     amount: number,
-    preAmount: number
+    prevAmount: number
 }
 
 export default function Trend({ 
     type, 
     amount, 
-    preAmount
+    prevAmount
 }: TrendProps ) {
     const colorClasses = {
         'Income': 'text-green-700 dark:text-green-300',
@@ -22,15 +22,15 @@ export default function Trend({
 
     const calcPercentageChange = (
         amount: number, 
-        preAmount: number
+        prevAmount: number
     ): number => {
-        if (preAmount === 0) return 0;
-        return ((amount - preAmount) / preAmount) * 100
+        if (prevAmount === 0) return 0;
+        return ((amount - prevAmount) / prevAmount) * 100
     };
 
     const percentageChange = useMemo(
-        () => calcPercentageChange(amount, preAmount),
-        [amount, preAmount]
+        () => calcPercentageChange(amount, prevAmount),
+        [amount, prevAmount]
     )
 
     const percentageChangeStr = useMemo(

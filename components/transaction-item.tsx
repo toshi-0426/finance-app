@@ -48,7 +48,6 @@ export default function TransactionItem({
                     {category}
                     </div>}
             </div>
-            <div></div>
 
             <div className="min-w-[70px] text-right">{formattedAmount}</div>
             <div className="min-w-[50px] flex justify-end">...</div>

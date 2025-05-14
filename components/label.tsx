@@ -8,7 +8,7 @@ export default function Label({
     children,
     ...rest
 } : LabelProps) {
-    return <label {...rest} className={`text-gray-700 dark:text-gray-300 ${className}`}>
+    return <label {...rest} className={`block text-gray-700 dark:text-gray-300 ${className}`}>
                 {children}
             </label>
 }

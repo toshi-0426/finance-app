@@ -44,6 +44,7 @@ function parseYearMonthDate(date: string): Date {
 };
 
 export default async function TransactionList(){
+    await new Promise((r) => setTimeout(r, 5000));
     const response: Response = await fetch(
         'http://localhost:3100/transactions'
     );
@@ -73,7 +74,6 @@ export default async function TransactionList(){
                         </section>
                     </div>
             ))}
-
         </div>
         
     )

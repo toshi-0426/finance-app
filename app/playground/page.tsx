@@ -7,6 +7,12 @@ import TransactionItem from "@/components/transaction-item";
 import TransactionSummaryItem from "@/components/transaction-summary-item";
 import Trend from "@/components/trend";
 import Separator from '@/components/separator'
+import Skelton from "@/components/skelton";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Playground"   
+};
 
 export default function Page(){
     return (
@@ -23,10 +29,10 @@ export default function Page(){
                 <h2 className="mb-4 text-lg font-mono">Trend</h2>
                 <Separator />
                 <div className="flex space-x-12">
-                    <Trend type="Income" amount={1000} preAmount={900} />
-                    <Trend type="Expense" amount={12000} preAmount={10000} />
-                    <Trend type="Investment" amount={7000} preAmount={11100} />
-                    <Trend type="Saving" amount={500} preAmount={950} />
+                    <Trend type="Income" amount={1000} prevAmount={900} />
+                    <Trend type="Expense" amount={12000} prevAmount={10000} />
+                    <Trend type="Investment" amount={7000} prevAmount={11100} />
+                    <Trend type="Saving" amount={500} prevAmount={950} />
                 </div>
             </div>
             
@@ -93,6 +99,25 @@ export default function Page(){
                     <div className="flex items-center">
                         <Input type="checkbox" id="terms" />
                         <Label className="ml-2" htmlFor="terms">Accept terms</Label> 
+                    </div>
+                </div>
+            </div>
+
+
+            <div>
+                <h2 className="mb-4 text-lg font-mono">Loading Skelton</h2>
+                <Separator />
+                <div className="space-y-8">
+                    <div className="flex space-x-4">
+                        <Skelton />
+                        <Skelton />
+                        <Skelton />
+                    </div>   
+
+                    <div className="space-y-4">
+                        <Skelton />
+                        <Skelton />
+                        <Skelton />      
                     </div>
                 </div>
             </div>
