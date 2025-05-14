@@ -5,13 +5,15 @@ import Input from "@/components/input";
 import Label from "@/components/label";
 import Select from "@/components/select";
 import { categories, TransactionCategory, TransactionType, types } from "@/lib/consts";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { DatePicker } from "antd";
+import type { Dayjs } from "dayjs";
+import dayjs from "dayjs";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
 
 type Inputs = {
   type: TransactionType,
   category: TransactionCategory,
-  created_at: string
-  date: string,
+  created_at: string,
   amount: number,
   description: string
 }
@@ -21,6 +23,7 @@ export default function TransactionForm() {
     register,
     handleSubmit,
     reset,
+    control,
     watch,
     formState: { errors },
     } = useForm<Inputs>();
@@ -48,7 +51,24 @@ export default function TransactionForm() {
 
                 <div>
                     <Label className="mb-1">Date</Label>
-                    <Input {...register("created_at")} placeholder="YYYY-MM-DD"/>
+                    <Controller 
+                        name="created_at"
+                        control={control}
+                        render={({field}) => {
+                            const dateValue: Dayjs | null = field.value? dayjs(field.value, 'YYYY-MM-DD') : null;
+                            return (
+                                <DatePicker className="w-full h-3/5"
+                                            format="YYYY-MM-DD"
+                                            placeholder="Select date"
+                                            value={dateValue}
+                                            onChange={(_, dateString) => field.onChange(dateString)}
+                                            onBlur={field.onBlur}
+                                />
+                            )
+                        }}  
+                    />
+                    
+                    {/*<Input {...register("created_at")} placeholder="YYYY-MM-DD"/>*/}
                 </div>
 
                 <div>
