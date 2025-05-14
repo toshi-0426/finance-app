@@ -7,3 +7,6 @@ export const categories = [
     'Utilities', 'Clothes', 'Beauty', 'Socializing', 'Books', 
     'Insurance', 'Tax', 'Health', 'Alchohol', 'Other'
 ]
+
+export type TransactionType = typeof types[number];
+export type TransactionCategory = typeof categories[number];
