@@ -1,6 +1,7 @@
 import TransactionItem from "@/components/transaction-item";
 import TransactionSummaryItem from "@/components/transaction-summary-item";
 import Separator from "@/components/separator";
+import { createClient } from "@/lib/supabase/server";
 
 type TransactionType = 'Income' | 'Expense' | 'Investment' | 'Saving';
 
@@ -44,32 +45,31 @@ function parseYearMonthDate(date: string): Date {
 };
 
 export default async function TransactionList(){
-    await new Promise((r) => setTimeout(r, 5000));
-    const response: Response = await fetch(
-        'http://localhost:3100/transactions'
-    );
+    const supabase = await createClient();
+    const { data: transactions, error } = await supabase
+        .from('transactions')
+        .select('*')
+        .order('created_at', { ascending: false })
     
-    const transactions = (await response.json()) as Transaction[];
-    //console.log(transactions);
-    //console.log(groupAndSumTransactionsByDate(transactions));
-    const groupedTransactions = groupAndSumTransactionsByDate(transactions);
-    //console.log(groupedTransactions);
+    if (error) {
+        return <div>Error: loading transactions</div>
+    }
+  
+    const groupedTransactions = groupAndSumTransactionsByDate(transactions ?? []);
     
-
-
     return (
-        <div className="space-y-8">
+        <div className="">
             {Object.entries(groupedTransactions)
                 .map(([date, {transactions, amount}]) => (
-                    <div key={date} >
+                    <div key={date} className="mb-12">
                         <TransactionSummaryItem 
                             date={parseYearMonthDate(date)}
                             amount={amount}
                         />
                         <Separator />
-                        <section >
+                        <section className="space-y-2">
                             {transactions.map(transaction => <div key={transaction.id}>
-                                <TransactionItem {...transaction} />
+                                <TransactionItem {...transaction}/>
                             </div>)}
                         </section>
                     </div>

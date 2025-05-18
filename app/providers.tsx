@@ -11,6 +11,6 @@ export function Providers({ children } : ProvidersProps){
                 defaultTheme="system"
                 enableSystem
                 >
-        {children}
+                    {children}
     </ThemeProvider>
 }

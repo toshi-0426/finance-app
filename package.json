@@ -7,14 +7,18 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "json-server": "json-server --watch db.json --port 3100"
+    "json-server": "json-server --watch db.json --port 3100",
+    "seed": "ts-node --loader ts-node/esm seed.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@hookform/resolvers": "^5.0.1",
     "@mui/icons-material": "^7.1.0",
     "@mui/material": "^7.1.0",
-    "antd": "^5.25.1",
+    "@mui/x-date-pickers": "^8.3.1",
+    "@supabase/ssr": "^0.6.1",
+    "@supabase/supabase-js": "^2.49.4",
     "dayjs": "^1.11.13",
     "json-server": "^0.17.4",
     "lucide-react": "^0.509.0",
@@ -22,19 +26,23 @@
     "next-themes": "^0.4.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-error-boundary": "^6.0.0",
     "react-hook-form": "^7.56.3",
-    "react-icons": "^5.5.0"
+    "react-icons": "^5.5.0",
+    "zod": "^3.24.4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@faker-js/faker": "^9.8.0",
     "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^16.5.0",
     "eslint": "^9",
     "eslint-config-next": "15.3.2",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5.8.3"
   }
 }

@@ -31,8 +31,40 @@
       "description": "Rent",
       "category": "Housing",
       "created_at": "2024-05-10T23:00:00"
+    },
+    {
+      "type": "Expense",
+      "category": "Phone",
+      "amount": 40,
+      "description": "phone data fee",
+      "created_at": "2025-01-08T00:00:00",
+      "id": 5
+    },
+    {
+      "type": "Income",
+      "category": "Other",
+      "amount": 3000,
+      "description": "saraly",
+      "created_at": "2025-05-13T00:00:00",
+      "id": 6
+    },
+    {
+      "type": "Investment",
+      "category": "Education",
+      "amount": 10000,
+      "description": "For the future",
+      "created_at": "2025-05-10T00:00:00",
+      "id": 7
+    },
+    {
+      "type": "Expense",
+      "category": "Food",
+      "amount": 10,
+      "description": "Restaurant with friends",
+      "created_at": "2025-05-09T00:00:00",
+      "id": 8
     }
-  ], 
+  ],
   "trend": [
     {
       "id": "Income",
@@ -54,6 +86,5 @@
       "amount": 4000,
       "prevAmount": 3000
     }
-    
   ]
 }

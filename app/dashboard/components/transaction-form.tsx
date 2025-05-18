@@ -4,90 +4,112 @@ import Button from "@/components/button";
 import Input from "@/components/input";
 import Label from "@/components/label";
 import Select from "@/components/select";
-import { categories, TransactionCategory, TransactionType, types } from "@/lib/consts";
-import { DatePicker } from "antd";
-import type { Dayjs } from "dayjs";
-import dayjs from "dayjs";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { categories, types } from "@/lib/consts";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Inputs, TransactionSchema } from "@/lib/validation";
+import { createTransaction } from "@/lib/actions";
+import { useRouter } from "next/navigation";
+import { FormError } from "@/components/form-error";
+import { useState } from "react";
 
-type Inputs = {
-  type: TransactionType,
-  category: TransactionCategory,
-  created_at: string,
-  amount: number,
-  description: string
-}
 
 export default function TransactionForm() {
     const {
     register,
     handleSubmit,
     reset,
-    control,
     watch,
+    setValue,
     formState: { errors },
-    } = useForm<Inputs>();
+    } = useForm({
+        mode: "onTouched",
+        resolver: zodResolver(TransactionSchema),
+    });
 
-    const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+    const [isSaving, setIsSaving] = useState(false);
+    const [lastError, setLastError] = useState<Error | null>(null);
+    const router = useRouter();
+    const type = watch('type');
+
+    const onSubmit: SubmitHandler<Inputs> = async (data) => {
+        setIsSaving(true);
+        setLastError(null);
+        try {
+            await createTransaction(data); 
+            router.push('/dashboard');
+        } catch(error) {
+            setLastError(error as Error);
+            //console.error('Submit failed:', error);
+        }
+        finally {
+            setIsSaving(false);
+        }
+    }
+
+    const onReset = () => {
+        reset();
+        setIsSaving(false);
+    }
 
     return (<>
         <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <Label className="mb-1">Type</Label>
-                    <Select defaultValue="" {...register("type")}>
-                        <option value="" disabled hidden>Select</option>
+                    <Select defaultValue=""  {...register("type", { 
+                        required: true,
+                        onChange: (e) => {
+                            if (e.target.value !== "Expense"){
+                                setValue("category", "")
+                            }
+                        }
+                    })}>
+                        <option value="" hidden>Select</option>
                         {types.map(type => <option key={type}>{type}</option>)}
                     </Select>
+                    <FormError error={errors.type}></FormError>
                 </div>
 
                 <div>
                     <Label className="mb-1">Category</Label>
-                    <Select defaultValue="" {...register("category")}>
+                    <Select defaultValue="" disabled={type !== 'Expense'} {...register("category")}>
                         <option value="" disabled hidden>Select</option>
                         {categories.map(category => <option key={category}>{category}</option>)}
                     </Select>
+                    <FormError error={errors.category}></FormError>
                 </div>
 
                 <div>
                     <Label className="mb-1">Date</Label>
-                    <Controller 
-                        name="created_at"
-                        control={control}
-                        render={({field}) => {
-                            const dateValue: Dayjs | null = field.value? dayjs(field.value, 'YYYY-MM-DD') : null;
-                            return (
-                                <DatePicker className="w-full h-3/5"
-                                            format="YYYY-MM-DD"
-                                            placeholder="Select date"
-                                            value={dateValue}
-                                            onChange={(_, dateString) => field.onChange(dateString)}
-                                            onBlur={field.onBlur}
-                                />
-                            )
-                        }}  
-                    />
-                    
-                    {/*<Input {...register("created_at")} placeholder="YYYY-MM-DD"/>*/}
+                    <Input placeholder="YYYY-MM-DD" {...register("created_at")} />
+                    <FormError error={errors.created_at}></FormError>
                 </div>
 
                 <div>
                     <Label className="mb-1">Amount</Label>
                     <Input type="number" {...register("amount")}/>
+                    <FormError error={errors.amount}></FormError>
                 </div>
 
-                <div className="cols-pan-2">
+                <div className="col-span-1 md:col-span-2">
                     <Label className="mb-1">Description</Label>
                     <Input {...register("description")}/>
+                    <FormError error={errors.description}></FormError>
                 </div>
             </div>
             
-            <div className="flex items-center space-x-4 justify-end">
-                <div className="">
-                    <Button type="submit">Save</Button>
+            <div className="flex items-center space-x-4 justify-between">
+                <div>
+                    {lastError && <FormError error={lastError} />}
                 </div>
-                <div className="">
-                    <Button onClick={() => reset()} variant="ghost" className="border">Reset</Button>
+                <div className="flex items-center space-x-4 justify-between">
+                    <div className="">
+                        <Button type="submit" disabled={isSaving}>Save</Button>
+                    </div>
+                    <div className="">
+                        <Button onClick={onReset} variant="ghost" className="border">Reset</Button>
+                    </div>
                 </div>
             </div>
             

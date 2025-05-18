@@ -1,9 +1,5 @@
-import { Metadata } from "next";
 import TransactionForm from "../../components/transaction-form";
 
-export const metadata: Metadata = {
-  title: "Add Transaction"   
-};
 
 export default function Page() {
     return (

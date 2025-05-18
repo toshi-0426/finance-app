@@ -1,3 +1,5 @@
+'use client'
+
 import { useMemo } from "react";
 import { ArrowDownLeft, ArrowUpRight } from 'lucide-react'
 import { useFormatCurrency } from "@/hooks/use-format-currency";

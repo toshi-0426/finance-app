@@ -1,7 +1,7 @@
 export const variants = {
-    default: "bg-black text-white dark:bg-white dark:text-black hover:bg-gray-700 dark:hover:bg-gray-200 rounded-md",
-    outline: "border border-gray-300 dark:border-gray-500 rounded-md hover:bg-gray-300 dark:hover:bg-gray-500",
-    ghost: "rounded-md bg-white dark:bg-black hover:bg-gray-200 dark:hover:bg-gray-500"
+    default: "bg-black text-white dark:bg-white dark:text-black hover:bg-gray-700 dark:hover:bg-gray-200 rounded-md disabled:opacity-25",
+    outline: "border border-gray-300 dark:border-gray-500 rounded-md hover:bg-gray-300 dark:hover:bg-gray-500 disabled:opacity-25",
+    ghost: "rounded-md bg-white dark:bg-black hover:bg-gray-200 dark:hover:bg-gray-500 disabled:opacity-25"
 } as const;
 
 export const sizes = {
