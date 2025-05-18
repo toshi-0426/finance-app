@@ -55,7 +55,7 @@ export default async function Page({
         </section>
 
         <Suspense fallback={<TransactionListFallback />}>
-            <TransactionList/>
+            <TransactionList range={range}/>
         </Suspense>
        
 
