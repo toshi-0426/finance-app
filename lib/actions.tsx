@@ -54,3 +54,4 @@ export async function deleteTransaction(id: number) {
   }
   revalidatePath("/dashboard");
 }
+

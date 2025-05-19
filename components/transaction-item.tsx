@@ -1,7 +1,9 @@
 import { useFormatCurrency } from "@/hooks/use-format-currency"
 import { TransactionType } from "@/lib/consts"
-import { HandCoins, Landmark, PiggyBank, Wallet} from 'lucide-react'
+import { HandCoins, Landmark, PiggyBank, SquarePen, Wallet} from 'lucide-react'
 import TransactionItemRemoveButton from "./transaction-item-remove-button"
+import Link from "next/link"
+import { sizes, variants } from "@/lib/variants"
 
 type TransactionItemProps = {
     id: number,
@@ -56,7 +58,12 @@ export default function TransactionItem({
             </div>
 
             <div className="min-w-[70px] text-right">{formattedAmount}</div>
-            <div className="min-w-[100px] flex justify-end">
+            <div className="min-w-[100px] flex justify-end items-center space-x-4">
+                <Link href={`/dashboard/transaction/${id}/edit`}
+                      className={`${variants['ghost']} ${sizes['xs']}`}
+                >
+                    <SquarePen className="w-4 h-4"/>
+                </Link>
                 <TransactionItemRemoveButton id={id} onRemoved={onRemoved}/>
             </div>
         </div>
