@@ -23,9 +23,7 @@ export default function TransactionSummaryItem({
                 {formattedAmount}
             </div>
 
-            <div className="min-w-[50px]">
-
-            </div>
+            <div className="min-w-[100px]"></div>
         </div>
     )
 }

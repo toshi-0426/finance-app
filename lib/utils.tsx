@@ -1,13 +1,4 @@
-import { TransactionType } from "./consts";
-
-interface Transaction {
-    id: number,
-    amount: number, 
-    type: TransactionType,
-    description: string,
-    category: string,
-    created_at: string
-}
+import { Transaction } from "./consts";
 
 
 interface TransactionGroup{
@@ -16,7 +7,6 @@ interface TransactionGroup{
 };
 
 type TransactionByDate = Record<string, TransactionGroup>;
-
 
 
 export const groupAndSumTransactionsByDate = (

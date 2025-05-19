@@ -3,7 +3,7 @@ import Button from "@/components/button";
 import Input from "@/components/input";
 import Label from "@/components/label";
 import Select from "@/components/select";
-import TransactionItem from "@/components/transaction-item";
+//import TransactionItem from "@/components/transaction-item";
 import TransactionSummaryItem from "@/components/transaction-summary-item";
 import Trend from "@/components/trend";
 import Separator from '@/components/separator'
@@ -40,11 +40,12 @@ export default function Page(){
                 <h2 className="mb-4 text-lg font-mono">Tansaction Item</h2>
                 <Separator />
                 <div className="">
+                    {/*
                     <TransactionItem type="Income" description="Salary" amount={2000} />
                     <TransactionItem type="Expense" category="Food" description="Going out to eat" amount={29} />
                     <TransactionItem type="Investment" description="In Microsoft" amount={500} />
                     <TransactionItem type="Saving" description="For children" amount={2000} />
-                    
+                    */}
                 </div>
             </div>
 
@@ -54,10 +55,11 @@ export default function Page(){
                 <div className="space-y-4">
                     <TransactionSummaryItem date={new Date(2025, 5, 4)} amount={3500}/>
                     <hr className="mb-4 border-gray-400 dark:border-gray-800"/>
-                    <TransactionItem type="Income" description="Salary" amount={2000} />
+                    {/*<TransactionItem type="Income" description="Salary" amount={2000} />
                     <TransactionItem type="Expense" category="Food" description="Going out to eat" amount={29} />
                     <TransactionItem type="Investment" description="In Microsoft" amount={500} />
                     <TransactionItem type="Saving" description="For children" amount={2000} />
+                    */}
                 </div>
             </div>
 

@@ -29,3 +29,12 @@ export const rangeTypes = [
 ] as const;
 
 export type RangeType = typeof rangeTypes[number];
+
+export interface Transaction {
+    id: number,
+    amount: number, 
+    type: TransactionType,
+    description: string,
+    category: string,
+    created_at: string
+}

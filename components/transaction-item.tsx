@@ -1,18 +1,24 @@
 import { useFormatCurrency } from "@/hooks/use-format-currency"
+import { TransactionType } from "@/lib/consts"
 import { HandCoins, Landmark, PiggyBank, Wallet} from 'lucide-react'
+import TransactionItemRemoveButton from "./transaction-item-remove-button"
 
 type TransactionItemProps = {
-    type: 'Income' | 'Expense' | 'Investment' | 'Saving',
+    id: number,
+    type: TransactionType,
     category?: string,
     description: string,
-    amount: number
+    amount: number,
+    onRemoved: (id: number) => void;
 }
 
 export default function TransactionItem({
+    id,
     type,
     category,
     description,
-    amount
+    amount,
+    onRemoved
 }: TransactionItemProps){
     const typesMap = {
         'Income': {
@@ -50,7 +56,9 @@ export default function TransactionItem({
             </div>
 
             <div className="min-w-[70px] text-right">{formattedAmount}</div>
-            <div className="min-w-[50px] flex justify-end">...</div>
+            <div className="min-w-[100px] flex justify-end">
+                <TransactionItemRemoveButton id={id} onRemoved={onRemoved}/>
+            </div>
         </div>
     )
 }
