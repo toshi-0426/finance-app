@@ -55,3 +55,24 @@ export async function deleteTransaction(id: number) {
   revalidatePath("/dashboard");
 }
 
+
+export async function updateTransaction(id: string, formData: Inputs) { 
+  const validated = TransactionSchema.safeParse(formData);
+
+  if (!validated.success) {
+    throw new Error('Invalid data')
+  }
+
+  const supabase = await createClient();
+  const { error } = await supabase
+      .from('transactions')
+      .update(validated.data)
+      .eq('id', id);
+
+  if (error) {
+    throw new Error('Failed updating the transaction');
+  } 
+
+  revalidatePath('/dashboard');
+}
+

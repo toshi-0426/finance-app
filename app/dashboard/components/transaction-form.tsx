@@ -8,13 +8,19 @@ import { categories, types } from "@/lib/consts";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Inputs, TransactionSchema } from "@/lib/validation";
-import { createTransaction } from "@/lib/actions";
+import { createTransaction, updateTransaction } from "@/lib/actions";
 import { useRouter } from "next/navigation";
 import { FormError } from "@/components/form-error";
 import { useState } from "react";
 
 
-export default function TransactionForm() {
+type TransactionFormProps = {
+  id: string,
+  initialData?: Inputs
+};
+
+
+export default function TransactionForm({id, initialData}: TransactionFormProps) {
     const {
     register,
     handleSubmit,
@@ -25,22 +31,36 @@ export default function TransactionForm() {
     } = useForm({
         mode: "onTouched",
         resolver: zodResolver(TransactionSchema),
+        defaultValues: initialData ? {
+            ...initialData,
+            created_at: new Date(initialData.created_at).toISOString().split('T')[0]
+        } : {
+            created_at: new Date().toISOString().split('T')[0]
+        }
     });
 
     const [isSaving, setIsSaving] = useState(false);
     const [lastError, setLastError] = useState<Error | null>(null);
     const router = useRouter();
     const type = watch('type');
+    const editing = Boolean(initialData);
 
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
         setIsSaving(true);
         setLastError(null);
         try {
-            await createTransaction(data); 
+            if (editing) {
+                await updateTransaction(
+                    id,
+                    data
+                )
+                //console.log(id);
+            } else {
+                await createTransaction(data); 
+            }
             router.push('/dashboard');
         } catch(error) {
             setLastError(error as Error);
-            //console.error('Submit failed:', error);
         }
         finally {
             setIsSaving(false);
@@ -82,7 +102,7 @@ export default function TransactionForm() {
 
                 <div>
                     <Label className="mb-1">Date</Label>
-                    <Input placeholder="YYYY-MM-DD" {...register("created_at")} />
+                    <Input placeholder="YYYY-MM-DD" {...register("created_at")} disabled={editing} />
                     <FormError error={errors.created_at}></FormError>
                 </div>
 
