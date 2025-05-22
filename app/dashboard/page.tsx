@@ -9,6 +9,7 @@ import { rangeTypes, RangeType, types as trendTypes} from "@/lib/consts";
 import ErrorBoundaryWrapper from "./components/trend-error-boundary-wrapper";
 import Range from "./components/range";
 import TransactionListWrapper from "./components/transaction-list-wrapper";
+//import { createClient } from "@/lib/supabase/server";
 
 
 export default async function Page({ 
@@ -16,6 +17,11 @@ export default async function Page({
 }: {
   searchParams: Promise<{ range?: string | string[] }>
 }) {
+ 
+    //const supabase = await createClient();
+    //console.log(await supabase.auth.getUser());
+
+
     const searchparams = await searchParams;
     const rawRange = Array.isArray(searchparams.range) ? searchparams.range[0] : searchparams.range;
     const range: RangeType = rangeTypes.includes(rawRange as RangeType) ? (rawRange as RangeType) : 'last30days';
@@ -53,10 +59,7 @@ export default async function Page({
 
         <Suspense fallback={<TransactionListFallback />}>
             <TransactionListWrapper range={range}/>
-        </Suspense>
-       
-
-        
+        </Suspense>  
     </div>
     )
 }

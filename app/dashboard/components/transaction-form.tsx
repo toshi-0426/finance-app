@@ -15,7 +15,7 @@ import { useState } from "react";
 
 
 type TransactionFormProps = {
-  id: string,
+  id?: string,
   initialData?: Inputs
 };
 
@@ -51,7 +51,7 @@ export default function TransactionForm({id, initialData}: TransactionFormProps)
         try {
             if (editing) {
                 await updateTransaction(
-                    id,
+                    id as string,
                     data
                 )
                 //console.log(id);

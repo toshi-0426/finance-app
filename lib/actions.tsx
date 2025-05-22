@@ -4,7 +4,8 @@ import { revalidatePath } from 'next/cache';
 import { createClient } from './supabase/server';
 import { Inputs } from './validation';
 import { TransactionSchema } from './validation';
-import { RangeType } from './consts';
+import { FormState, RangeType } from './consts';
+import { redirect } from 'next/navigation';
 
 
 
@@ -76,3 +77,92 @@ export async function updateTransaction(id: string, formData: Inputs) {
   revalidatePath('/dashboard');
 }
 
+export async function login(
+  prevState: FormState, 
+  formData: FormData
+): Promise<FormState> {
+  const email = formData.get('email');
+  if (!email || typeof email !== 'string'){
+    return {
+      error: true,
+      message: 'Invalid email'
+    }
+  }
+  
+  const supabase = await createClient();
+  const { error } = await supabase.auth.signInWithOtp({
+    email,
+    options: {
+      shouldCreateUser: true
+    }
+  });
+
+  if (error) {
+    return {
+      error: true,
+      message: 'Error Authenticating'
+    }
+  }
+
+  return {
+    message: `Email sent to ${email}`,
+    error: false
+  }
+}
+
+export async function signOut() {
+  const supabase = await createClient();
+  const { error } = await supabase.auth.signOut();
+
+  if (error) {
+    console.error('Sing-out Error', error);
+    return;
+  };
+
+  redirect("/login");
+}
+
+export async function uploadAvator(formData: FormData) {
+  const supabase = await createClient();
+  console.log(formData);
+  const file = formData.get('file') as File;
+
+  if (!file) {
+    throw new Error('No file uploaded');
+  }
+
+  if (!['image/jpeg', 'image/png'].includes(file.type)) {
+    throw new Error('Only JPEG or PNG files are allowed');
+  }
+
+  if (file.size > 512 * 1024) {
+    throw new Error('File size must be less than 512 KB');
+  }
+
+
+  const fileExtension = file.name.split('.').pop();
+  const filename = `${Math.random()}.${fileExtension}`;
+  
+  const { error } = await supabase.storage 
+        .from('avatars')
+        .upload(filename, file);
+    
+  if (error) {
+    throw new Error('Error Uploading avatar');
+  }
+
+  console.log('Success Uploading avatar');
+
+  const { error: dataUpdateError } = await supabase.auth.updateUser({
+    data: {
+      avatar: filename
+    }
+  })
+
+  if (dataUpdateError) {
+    throw new Error('Error associating the avatar with the user');
+  }
+
+  console.log('Success Updating user');
+
+}

@@ -38,3 +38,8 @@ export interface Transaction {
     category: string,
     created_at: string
 }
+
+export interface FormState {
+    message: string,
+    error: boolean
+}

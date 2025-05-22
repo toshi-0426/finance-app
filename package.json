@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "json-server": "json-server --watch db.json --port 3100",
-    "seed": "ts-node --loader ts-node/esm seed.ts"
+    "check": "tsc --noEmit && eslint . --ext .ts,.tsx"
+
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

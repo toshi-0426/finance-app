@@ -6,7 +6,6 @@ type ButtonProps = {
     variant?: Variant,
     size?: Size,
     children: ReactNode,
-    
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export default function Button({

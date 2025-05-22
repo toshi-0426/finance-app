@@ -21,7 +21,7 @@ export default function ThemeSwitch() {
                 onClick={() => setTheme('light')}
             >
                 <FiSun 
-                    className="w-5 h-5 cursor-pointer"
+                    className="w-6 h-6 cursor-pointer"
                 />
             </Button>
         )
@@ -34,7 +34,7 @@ export default function ThemeSwitch() {
                 onClick={() => setTheme('dark')}
             >
                 <FiMoon 
-                    className="w-5 h-5 cursor-pointer"
+                    className="w-6 h-6 cursor-pointer"
                 />
             </Button>
     )
